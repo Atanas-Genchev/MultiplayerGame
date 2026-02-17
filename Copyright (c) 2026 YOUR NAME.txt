@@ -1,0 +1,21 @@
+Copyright (c) 2026 YOUR NAME
+
+All rights reserved.
+
+Permission is granted to use, copy, modify, and distribute this game
+and its source code for personal, educational, and non-commercial purposes only.
+
+Attribution to the original author is required in all copies and
+substantial portions of the software.
+
+Commercial use is strictly prohibited without explicit written permission.
+Commercial use includes, but is not limited to:
+
+- Selling the game or derivatives
+- Monetizing servers or hosting for profit
+- Adding advertisements
+- Charging for access
+- In-game purchases or microtransactions
+- Integrating into commercial products
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
