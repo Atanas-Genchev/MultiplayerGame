@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dgistbjkrs4hx"]
+
+[ext_resource type="Script" uid="uid://cbi2s1lqp560r" path="res://ui/main_menu/main_menu.gd" id="1_uhj5c"]
+
+[node name="MainMenu" type="MarginContainer" unique_id=879745124]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uhj5c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1767250812]
+custom_minimum_size = Vector2(134, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SinglePlayerButton" type="Button" parent="VBoxContainer" unique_id=1588576906]
+layout_mode = 2
+text = "Single Player"
+
+[node name="MultiplayerButton" type="Button" parent="VBoxContainer" unique_id=1769909673]
+layout_mode = 2
+text = "Multiplayer"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=1108624315]
+layout_mode = 2
+text = "Quit"

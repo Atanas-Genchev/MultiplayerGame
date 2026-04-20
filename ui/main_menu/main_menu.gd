@@ -1,0 +1,29 @@
+extends Control
+
+
+var main_scene: PackedScene = preload("uid://bw77affpadnt4")
+
+@onready var single_player_button: Button = $VBoxContainer/SinglePlayerButton
+@onready var multiplayer_button: Button = $VBoxContainer/MultiplayerButton
+@onready var quit_button: Button = $VBoxContainer/QuitButton
+
+@onready var multiplayer_menu : PackedScene = load("uid://b7ek2hamlcwdo")
+
+
+
+func _ready() -> void:
+	single_player_button.pressed.connect(_on_single_player_button_pressed)
+	multiplayer_button.pressed.connect(_on_multiplayer_button_pressed)
+	quit_button.pressed.connect(_on_quit_button_pressed)
+
+
+func _on_single_player_button_pressed() -> void:
+	get_tree().change_scene_to_packed(main_scene)
+	
+func _on_multiplayer_button_pressed() -> void:
+	get_tree().change_scene_to_packed(multiplayer_menu)
+
+	
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+	
