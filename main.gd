@@ -8,11 +8,14 @@ static var background_mask: Sprite2D
 var player_scene: PackedScene = preload("uid://c5dfksrt3u5km")
 
 @onready var multiplayer_spawner: MultiplayerSpawner = $MultiplayerSpawner
-@onready var player_spawn_position: Marker2D = $PlayerSpawnPosition
+@onready var center_position: Marker2D = $CenterPosition
 @onready var enemy_manager: EnemyManager = $EnemyManager
 @onready var _background_effects: Node2D = $BackgroundEffects
 @onready var _background_mask: Sprite2D = %BackGroundMask
 @onready var game_ui: GameUI = $GameUI
+@onready var pause_menu: PauseMenu = $PauseMenu
+@onready var lobby_manager: LobbyManager = $LobbyManager
+
 
 var dead_peers: Array[int] = []
 var player_dictonary : Dictionary[int,Player] = {}
@@ -27,7 +30,7 @@ func _ready():
 		player.set_display_name(data.display_name)
 		player.name = str(data.peer_id)
 		player.input_multiplayer_authority = data.peer_id
-		player.global_position = player_spawn_position.global_position
+		player.global_position = center_position.global_position
 		
 		if multiplayer.get_unique_id() == data.peer_id:
 			game_ui.connect_player(player)
@@ -41,6 +44,9 @@ func _ready():
 		return player
 
 	peer_ready.rpc_id(1, MultiplayerConfig.display_name)
+	
+	pause_menu.quit_requested.connect(_on_quit_requested)
+	lobby_manager.all_peers_ready.connect(_on_all_peers_ready)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	if is_multiplayer_authority():
 		enemy_manager.round_completed.connect(_on_round_completed)
@@ -73,8 +79,10 @@ func respawn_dead_peers():
 
 
 func end_game():
+	get_tree().paused = false
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
 	get_tree().change_scene_to_file(MAIN_MENU_SCENE_PATH)
+	
 
 
 func check_game_over():
@@ -115,3 +123,10 @@ func _on_peer_disconected(peer_id : int):
 		
 func _on_game_completed():
 	end_game()
+
+func _on_quit_requested():
+	end_game()
+
+func _on_all_peers_ready():
+	lobby_manager.close_lobby()
+	enemy_manager.start()

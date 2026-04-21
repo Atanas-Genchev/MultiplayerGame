@@ -19,25 +19,57 @@ theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 48
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=252587733]
+[node name="ReadyUpContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1025750454]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="ReadyLabel" type="Label" parent="MarginContainer/ReadyUpContainer" unique_id=584530360]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.09019608, 0.7294118, 0.48235294, 1)
+theme_override_constants/outline_size = 4
+text = "READY"
+horizontal_alignment = 1
+
+[node name="NotReadyLabel" type="Label" parent="MarginContainer/ReadyUpContainer" unique_id=1603688807]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_constants/outline_size = 4
+text = "PRESS R TO READY UP"
+horizontal_alignment = 1
+
+[node name="ReadyCountLabel" type="Label" parent="MarginContainer/ReadyUpContainer" unique_id=2005554118]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/outline_size = 4
+text = "1/4 READY"
+horizontal_alignment = 1
+
+[node name="RoundInfoContainer" type="VBoxContainer" parent="MarginContainer" unique_id=252587733]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="RoundLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=980164729]
+[node name="RoundLabel" type="Label" parent="MarginContainer/RoundInfoContainer" unique_id=980164729]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_constants/outline_size = 4
 text = "Round 1"
 
-[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1621763371]
+[node name="TimerLabel" type="Label" parent="MarginContainer/RoundInfoContainer" unique_id=1621763371]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+theme_override_constants/outline_size = 4
 text = "30"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1913979658]
@@ -72,6 +104,7 @@ theme_override_constants/separation = 0
 [node name="DisplayNameLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=157256324]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/outline_size = 4
 text = "Player Name"
 
 [node name="HealthProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1337789884]
