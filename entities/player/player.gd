@@ -3,6 +3,10 @@ extends CharacterBody2D
 
 signal died
 
+const BASE_MOVEMENT_SPEED: float = 100
+const BASE_FIRE_RATE: float = 0.25
+const BASE_BULLET_DAMAGE: int = 1
+
 @onready var player_input_synchronizer_component: PlayerInputSynchronizerComponent = $PlayerInputSynchronizerComponent
 @onready var weapon_root: Node2D = $Visuals/WeaponRoot
 @onready var fire_rate_timer: Timer = $FireRateTimer
@@ -47,11 +51,36 @@ func _process(_delta: float) -> void:
 		if is_dying:
 			global_position = Vector2.RIGHT * 1000
 			return
-		velocity = player_input_synchronizer_component.movement_vector * 100
+		velocity = player_input_synchronizer_component.movement_vector * get_movement_speed()
 		move_and_slide()
 		if player_input_synchronizer_component.is_attack_pressed:
 			try_fire()
 
+func get_movement_speed() -> float:
+	var movement_upgrade_count := UpgradeManager.get_peer_upgrade_count(
+		player_input_synchronizer_component.get_multiplayer_authority(),
+		"movement_speed"
+	)
+	
+	var speed_modifier := 1 +(.15 * movement_upgrade_count)
+	
+	return BASE_MOVEMENT_SPEED * speed_modifier
+
+func get_bullet_damage() -> int:
+	var damage_count := UpgradeManager.get_peer_upgrade_count(
+		player_input_synchronizer_component.get_multiplayer_authority(),
+		"damage"
+	)
+	
+	return BASE_BULLET_DAMAGE + damage_count
+
+func get_fire_rate() -> float:
+	var fire_rate_count := UpgradeManager.get_peer_upgrade_count(
+		player_input_synchronizer_component.get_multiplayer_authority(),
+		"fire_rate"
+	)
+	
+	return BASE_FIRE_RATE * (1- (0.1 * fire_rate_count))
 
 func update_aim_position():
 	var aim_vector = player_input_synchronizer_component.aim_vector
@@ -66,9 +95,13 @@ func try_fire():
 		return
 
 	var bullet = bullet_scene.instantiate() as Bullet
+	bullet.damage = get_bullet_damage()
 	bullet.global_position = barrel_position.global_position
+	bullet.source_peer_id = player_input_synchronizer_component.get_multiplayer_authority()
 	bullet.start(player_input_synchronizer_component.aim_vector)
 	get_parent().add_child(bullet, true)
+	
+	fire_rate_timer.wait_time = get_fire_rate()
 	fire_rate_timer.start()
 	
 	play_fire_effects.rpc()
