@@ -208,19 +208,19 @@ shape = SubResource("CircleShape2D_qiwj3")
 position = Vector2(-28, -16)
 texture = ExtResource("15_3wlsy")
 centered = false
-offset = Vector2(-8, -26)
-flip_h = true
+offset = Vector2(-12, -26)
 
 [node name="WeaponRoot" type="Node2D" parent="Visuals" unique_id=1210027996]
-position = Vector2(0, -9)
+position = Vector2(-6, -14)
 
 [node name="WeaponAnimationRoot" type="Node2D" parent="Visuals/WeaponRoot" unique_id=408840140]
-position = Vector2(11, -1)
+position = Vector2(19, -2)
 
 [node name="Gun" type="Sprite2D" parent="Visuals/WeaponRoot/WeaponAnimationRoot" unique_id=390987211]
 position = Vector2(1, 2)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("16_3wlsy")
+offset = Vector2(-500, 0)
 
 [node name="BarrelPosition" type="Marker2D" parent="Visuals/WeaponRoot/WeaponAnimationRoot" unique_id=166592915]
 unique_name_in_owner = true
