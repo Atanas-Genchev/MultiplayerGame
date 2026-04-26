@@ -10,6 +10,7 @@ var direction: Vector2
 var source_peer_id: int
 var damage: int = 1
 
+
 func _ready() -> void:
 	hitbox_component.damage = damage
 	hitbox_component.source_peer_id = source_peer_id
@@ -27,6 +28,7 @@ func start(dir: Vector2):
 
 
 func register_collision():
+	hitbox_component.is_hit_handled = true
 	queue_free()
 
 

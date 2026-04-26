@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="UpgradeResource" format=3 uid="uid://ho05lgcpdetd"]
+[gd_resource type="Resource" script_class="UpgradeResource" format=3 uid="uid://c84glxf6fhw47"]
 
-[ext_resource type="Script" uid="uid://oq2yeogpeod7" path="res://resources/upgrade/upgrade_resource.gd" id="1_i2swd"]
+[ext_resource type="Script" uid="uid://cir64g6rq2f5n" path="res://resources/upgrade/upgrade_resource.gd" id="1_i2swd"]
 
 [resource]
 script = ExtResource("1_i2swd")
 id = "movement_speed"
-display_name = "Increased_speed"
-description = "Movement speed increased by 15%."
-metadata/_custom_type_script = "uid://oq2yeogpeod7"
+display_name = "Повишена скорост"
+description = "Скоростта на движение се е увеличила с 15%."
+metadata/_custom_type_script = "uid://cir64g6rq2f5n"

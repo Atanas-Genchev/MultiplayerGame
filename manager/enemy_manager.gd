@@ -9,11 +9,13 @@ const ROUND_BASE_TIME: int = 10
 const ROUND_GROWTH: int = 5
 const BASE_ENEMY_SPAWN_TIME: float = 2
 const ENEMY_SPAWN_TIME_GROWTH: float = -.15
-const MAX_ROUNDS : int = 3
+const MAX_ROUNDS: int = 10
+
 
 @export var enemy_scene: PackedScene
 @export var enemy_spawn_root: Node
 @export var spawn_rect: ReferenceRect
+@export var upgrade_manager: UpgradeManager
 
 @onready var spawn_interval_timer: Timer = $SpawnIntervalTimer
 @onready var round_timer: Timer = $RoundTimer
@@ -34,12 +36,13 @@ func _ready():
 		.connect(_on_spawn_interval_timer_timeout)
 	round_timer.timeout.connect(_on_round_timer_timeout)
 	GameEvents.enemy_died.connect(_on_enemy_died)
-	
+	upgrade_manager.upgrades_completed.connect(_on_upgrades_completed)
+
 
 func start():
 	if is_multiplayer_authority():
 		begin_round()
-	
+
 
 func synchronize(to_peer_id: int = -1):
 	if !is_multiplayer_authority():
@@ -73,7 +76,7 @@ func get_round_time_remaining() -> float:
 
 func begin_round():
 	round_count += 1
-	round_timer.wait_time = 1  #ROUND_BASE_TIME + ((round_count - 1) * ROUND_GROWTH)
+	round_timer.wait_time = ROUND_BASE_TIME + ((round_count - 1) * ROUND_GROWTH)
 	round_timer.start()
 
 	spawn_interval_timer.wait_time = BASE_ENEMY_SPAWN_TIME +\
@@ -88,12 +91,12 @@ func check_round_completed():
 		return
 	
 	if spawned_enemies == 0:
-		
 		if round_count == MAX_ROUNDS:
 			complete_game()
 		else:
 			round_completed.emit()
-			
+
+
 func complete_game():
 	await get_tree().create_timer(2).timeout
 	game_completed.emit()
@@ -128,3 +131,7 @@ func _on_round_timer_timeout():
 func _on_enemy_died():
 	spawned_enemies -= 1
 	check_round_completed()
+
+
+func _on_upgrades_completed():
+	begin_round()

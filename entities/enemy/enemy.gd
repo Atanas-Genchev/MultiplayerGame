@@ -9,9 +9,11 @@ extends CharacterBody2D
 @onready var hitbox_collision_shape: CollisionShape2D = %HitboxCollisionShape
 @onready var alert_sprite: Sprite2D = $AlertSprite
 @onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hit_stream_player: AudioStreamPlayer = $HitStreamPlayer
 
-var impact_particles_scene : PackedScene = preload("uid://cps4vk7gofgi0")
-var ground_particles_scene : PackedScene = preload("uid://dpu8dwdw0k7hq")
+var impact_particles_scene: PackedScene = preload("uid://blgoar5vjd7kp")
+var ground_particles_scene: PackedScene = preload("uid://bb5nrvy28scac")
 
 var target_position: Vector2
 var state_machine: CallableStateMachine = CallableStateMachine.new()
@@ -29,7 +31,7 @@ var current_state: String:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_SCENE_INSTANTIATED:
 		state_machine.add_states(state_spawn, enter_state_spawn, Callable())
-		state_machine.add_states(state_normal, enter_state_normal, Callable())
+		state_machine.add_states(state_normal, enter_state_normal, leave_state_normal)
 		state_machine.add_states(state_charge_attack, enter_state_charge_attack,\
 			leave_state_charge_attack)
 		state_machine.add_states(state_attack, enter_state_attack, leave_state_attack)
@@ -45,6 +47,7 @@ func _ready():
 		health_component.died.connect(_on_died)
 		state_machine.set_initial_state(state_spawn)
 		hurtbox_component.hit_by_hitbox.connect(_on_hit_by_hitbox)
+
 
 func _process(_delta: float) -> void:
 	state_machine.update()
@@ -68,6 +71,7 @@ func state_spawn():
 
 
 func enter_state_normal():
+	animation_player.play("run")
 	if is_multiplayer_authority():
 		acquire_target()
 		target_acquisition_timer.start()
@@ -80,11 +84,17 @@ func state_normal():
 		if target_acquisition_timer.is_stopped():
 			acquire_target()
 			target_acquisition_timer.start()
-	
-		if attack_cooldown_timer.is_stopped() && global_position.distance_to(target_position) < 150:
+		
+		var can_attack := attack_cooldown_timer.is_stopped() ||\
+			global_position.distance_to(target_position) < 16
+		if can_attack && global_position.distance_to(target_position) < 150:
 			state_machine.change_state(state_charge_attack)
 	
 	flip()
+
+
+func leave_state_normal():
+	animation_player.play("RESET")
 
 
 func enter_state_charge_attack():
@@ -168,27 +178,32 @@ func acquire_target():
 	if nearest_player != null:
 		target_position = nearest_player.global_position
 
-@rpc("authority","call_local")
-func spawn_hit_particles():
-	var hit_particles : Node2D = impact_particles_scene.instantiate()
+
+@rpc("authority", "call_local")
+func spawn_hit_effects():
+	hit_stream_player.play()
+	var hit_particles: Node2D = impact_particles_scene.instantiate()
 	hit_particles.global_position = hurtbox_component.global_position
 	get_parent().add_child(hit_particles)
 
-@rpc("authority","call_local")
+
+@rpc("authority", "call_local")
 func spawn_death_particles():
-	var death_particles : Node2D = ground_particles_scene.instantiate()
-	
-	var background_node : Node = Main.background_mask
+	var death_particles: Node2D = ground_particles_scene.instantiate()
+
+	var background_node: Node = Main.background_mask
 	if !is_instance_valid(background_node):
 		background_node = get_parent()
-		
+
 	background_node.add_child(death_particles)
 	death_particles.global_position = global_position
+
 
 func _on_died():
 	spawn_death_particles.rpc()
 	GameEvents.emit_enemy_died()
 	queue_free()
 
+
 func _on_hit_by_hitbox():
-	spawn_hit_particles.rpc()
+	spawn_hit_effects.rpc()

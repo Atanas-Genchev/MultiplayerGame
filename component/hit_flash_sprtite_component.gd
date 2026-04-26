@@ -3,6 +3,7 @@ extends Sprite2D
 @export var health_component : HealthComponent
 
 var shader_tween : Tween
+var peer_id_filter: int = -1
 
 func _ready() -> void:
 	if is_multiplayer_authority():
@@ -18,4 +19,7 @@ func _play_highlght() -> void:
 
 
 func _on_damaged() -> void:
-	_play_highlght.rpc()
+	if peer_id_filter > -1:
+		_play_highlght.rpc_id(peer_id_filter)
+	else:
+		_play_highlght.rpc()

@@ -4,6 +4,7 @@ extends Node
 signal died
 signal damaged
 signal health_changed(current_health: int, max_health: int)
+
 @export var max_health: int = 1
 
 var _current_health: int
@@ -13,6 +14,7 @@ var current_health: int:
 	set(value):
 		_current_health = value
 		health_changed.emit(_current_health, max_health)
+
 
 func _ready() -> void:
 	current_health = max_health

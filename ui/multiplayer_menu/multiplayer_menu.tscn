@@ -1,8 +1,9 @@
-[gd_scene format=3 uid="uid://b7ek2hamlcwdo"]
+[gd_scene format=3 uid="uid://dvycpc5u8pjuc"]
 
-[ext_resource type="Script" uid="uid://cwc1jqnyqlib7" path="res://ui/multiplayer_menu/multiplayer_menu.gd" id="1_tvsvp"]
+[ext_resource type="Script" uid="uid://jdh1gw2ic05e" path="res://ui/multiplayer_menu/multiplayer_menu.gd" id="1_tvsvp"]
+[ext_resource type="PackedScene" uid="uid://dowdno32gmu8s" path="res://autoload/background.tscn" id="2_oeey6"]
 
-[node name="MultiplayerMenu" type="MarginContainer" unique_id=589679226]
+[node name="MultiplayerMenu" type="MarginContainer" unique_id=90605789]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,117 +15,119 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("1_tvsvp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=686111926]
+[node name="Background" parent="." unique_id=392413888 instance=ExtResource("2_oeey6")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=923608855]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1890903222]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=177745361]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=32176879]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=135741845]
 layout_mode = 2
-text = "Display Name:"
+text = "Показвано име:"
 
-[node name="DisplayNameTextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer" unique_id=337399616]
+[node name="DisplayNameTextEdit" type="TextEdit" parent="VBoxContainer/VBoxContainer" unique_id=460930170]
 unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "Display Name"
+placeholder_text = "Показвано име"
 scroll_fit_content_height = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=765086388]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=337385748]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=428642331]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=629486881]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1667526782]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=816105818]
 layout_mode = 2
-text = "Port:"
+text = "Порт:"
 
-[node name="PortTextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1342382842]
+[node name="PortTextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1263188375]
 unique_name_in_owner = true
 layout_mode = 2
 text = "3000"
-placeholder_text = "Host Port"
+placeholder_text = "Хост Порт"
 scroll_fit_content_height = true
 
-[node name="HostButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1457515372]
+[node name="HostButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1173358907]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Host"
+text = "Хост"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=780809745]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=645830484]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1006051975]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1046023228]
 layout_mode = 2
-text = "IP Address:"
+text = "Ip адрес:"
 
-[node name="IPAddressTextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=855388343]
+[node name="IPAddressTextEdit" type="TextEdit" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=2010619742]
 unique_name_in_owner = true
 layout_mode = 2
 text = "127.0.0.1"
-placeholder_text = "IP Address"
+placeholder_text = "IP адрес"
 scroll_fit_content_height = true
 
-[node name="JoinButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=313141722]
+[node name="JoinButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1408285672]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Join"
+text = "Присъединете се"
 
-[node name="BackButton" type="Button" parent="." unique_id=726863121]
+[node name="BackButton" type="Button" parent="." unique_id=1079955834]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "Back"
+text = "Обратно"
 
-[node name="ErrorContainer" type="MarginContainer" parent="." unique_id=253550592]
+[node name="ErrorContainer" type="MarginContainer" parent="." unique_id=466108218]
 layout_mode = 2
 mouse_filter = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="ErrorContainer" unique_id=21296219]
+[node name="PanelContainer" type="PanelContainer" parent="ErrorContainer" unique_id=1257184799]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="ErrorContainer/PanelContainer" unique_id=645594051]
+[node name="MarginContainer" type="MarginContainer" parent="ErrorContainer/PanelContainer" unique_id=464818129]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ErrorContainer/PanelContainer/MarginContainer" unique_id=2100757923]
+[node name="VBoxContainer" type="VBoxContainer" parent="ErrorContainer/PanelContainer/MarginContainer" unique_id=833652113]
+visible = false
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1707837404]
+[node name="Label" type="Label" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=710478324]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.12941177, 0.5921569, 0.9411765, 1)
-text = "Error!"
+theme_override_colors/font_color = Color(0.129412, 0.592157, 0.941176, 1)
+text = "Грешка!"
 
-[node name="ClientErrorLabel" type="Label" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1425616590]
+[node name="ClientErrorLabel" type="Label" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=504405510]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.12941177, 0.5921569, 0.9411765, 1)
-text = "An error occured when connecting to server."
+theme_override_colors/font_color = Color(0.129412, 0.592157, 0.941176, 1)
+text = "Възникна грешка при свързване със сървъра."
 
-[node name="ServerErrorLabel" type="Label" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=377431412]
+[node name="ServerErrorLabel" type="Label" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1710144033]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.12941177, 0.5921569, 0.9411765, 1)
-text = "An error occured when creating the server."
+theme_override_colors/font_color = Color(0.129412, 0.592157, 0.941176, 1)
+text = "Възникна грешка при създаването на сървъра."
 
-[node name="ErrorConfirmButton" type="Button" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=684927680]
+[node name="ErrorConfirmButton" type="Button" parent="ErrorContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=903849070]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
-text = "Ok"
+text = "ок"
